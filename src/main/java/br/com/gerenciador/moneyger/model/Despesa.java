@@ -11,17 +11,21 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.gerenciador.moneyger.model.enums.TipoDespesa;
+
 @Entity
 public class Despesa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String descricao;
 	private BigDecimal valor;
 	private Instant data;
+
+	private Integer tipoDespesa;
 
 	@ManyToOne
 	@JoinColumn(name = "client_id")
@@ -31,12 +35,13 @@ public class Despesa implements Serializable {
 
 	}
 
-	public Despesa(Long id, String descricao, BigDecimal valor, Instant data, User client) {
+	public Despesa(Long id, String descricao, BigDecimal valor, Instant data, TipoDespesa tipoDespesa, User client) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
+		setTipoDespesa(tipoDespesa);
 		this.client = client;
 	}
 
@@ -70,6 +75,16 @@ public class Despesa implements Serializable {
 
 	public void setData(Instant data) {
 		this.data = data;
+	}
+
+	public TipoDespesa getTipoDespesa() {
+		return TipoDespesa.valueOf(tipoDespesa);
+	}
+
+	public void setTipoDespesa(TipoDespesa tipoDespesa) {
+		if (tipoDespesa != null) {
+			this.tipoDespesa = tipoDespesa.getCode();
+		}
 	}
 
 	public User getClient() {

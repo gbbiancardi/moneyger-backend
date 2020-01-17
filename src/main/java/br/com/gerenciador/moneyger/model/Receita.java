@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import br.com.gerenciador.moneyger.model.enums.TipoReceita;
+
 @Entity
 public class Receita implements Serializable {
 
@@ -23,6 +25,8 @@ public class Receita implements Serializable {
 	private BigDecimal valor;
 	private Instant data;
 
+	private Integer tipoReceita;
+
 	@ManyToOne
 	@JoinColumn(name = "client_id")
 	private User client;
@@ -31,12 +35,13 @@ public class Receita implements Serializable {
 
 	}
 
-	public Receita(Long id, String descricao, BigDecimal valor, Instant data, User client) {
+	public Receita(Long id, String descricao, BigDecimal valor, Instant data, TipoReceita tipoReceita, User client) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.valor = valor;
 		this.data = data;
+		setTipoReceita(tipoReceita);
 		this.client = client;
 	}
 
@@ -75,9 +80,19 @@ public class Receita implements Serializable {
 	public User getClient() {
 		return client;
 	}
-	
+
 	public void setClient(User client) {
 		this.client = client;
+	}
+
+	public TipoReceita getTipoReceita() {
+		return TipoReceita.valueOf(tipoReceita);
+	}
+
+	public void setTipoReceita(TipoReceita tipoReceita) {
+		if (tipoReceita != null) {
+			this.tipoReceita = tipoReceita.getCode();
+		}
 	}
 
 	@Override
