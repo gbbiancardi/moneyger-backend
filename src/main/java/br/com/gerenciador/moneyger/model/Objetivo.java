@@ -11,6 +11,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 
 @Entity
@@ -23,6 +25,7 @@ public class Objetivo implements Serializable {
 	private Long id;
 	private String descricao;
 	private BigDecimal meta;
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ss'Z'", timezone = "GMT")
 	private Instant dataAtual;
 	private Instant dataEstipulada;
 
