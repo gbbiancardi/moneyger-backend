@@ -12,6 +12,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
+import br.com.gerenciador.moneyger.model.enums.TipoObjetivo;
 
 @Entity
 public class Objetivo implements Serializable {
@@ -26,6 +27,7 @@ public class Objetivo implements Serializable {
 	private Instant dataAtual;
 	private Instant dataEstipulada;
 
+	private Integer tipoObjetivo;
 	private Integer statusObjetivo;
 
 	@ManyToOne
@@ -37,13 +39,14 @@ public class Objetivo implements Serializable {
 	}
 
 	public Objetivo(Long id, String descricao, BigDecimal meta, Instant dataAtual, Instant dataEstipulada,
-			StatusObjetivo statusObjetivo, User client) {
+			TipoObjetivo tipoObjetivo, StatusObjetivo statusObjetivo, User client) {
 		super();
 		this.id = id;
 		this.descricao = descricao;
 		this.meta = meta;
 		this.dataAtual = dataAtual;
 		this.dataEstipulada = dataEstipulada;
+		setTipoObjetivo(tipoObjetivo);
 		setStatusObjetivo(statusObjetivo);
 		this.client = client;
 	}
@@ -95,6 +98,16 @@ public class Objetivo implements Serializable {
 	public void setStatusObjetivo(StatusObjetivo statusObjetivo) {
 		if (statusObjetivo != null) {
 			this.statusObjetivo = statusObjetivo.getCode();
+		}
+	}
+
+	public TipoObjetivo getTipoObjetivo() {
+		return TipoObjetivo.valueOf(tipoObjetivo);
+	}
+
+	public void setTipoObjetivo(TipoObjetivo tipoObjetivo) {
+		if (tipoObjetivo != null) {
+			this.tipoObjetivo = tipoObjetivo.getCode();
 		}
 	}
 

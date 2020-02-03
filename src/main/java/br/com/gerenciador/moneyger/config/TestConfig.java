@@ -14,6 +14,7 @@ import br.com.gerenciador.moneyger.model.Receita;
 import br.com.gerenciador.moneyger.model.User;
 import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 import br.com.gerenciador.moneyger.model.enums.TipoDespesa;
+import br.com.gerenciador.moneyger.model.enums.TipoObjetivo;
 import br.com.gerenciador.moneyger.model.enums.TipoReceita;
 import br.com.gerenciador.moneyger.repositories.DespesaRepository;
 import br.com.gerenciador.moneyger.repositories.ObjetivoRepository;
@@ -44,9 +45,9 @@ public class TestConfig implements CommandLineRunner {
 //		userRepository.saveAll(Arrays.asList(u1, u2));
 //
 //		Objetivo o1 = new Objetivo(null, "Viagem", BigDecimal.valueOf(18000), Instant.now(),
-//				Instant.parse("2019-06-20T19:53:07Z"), StatusObjetivo.CAMINHANDO, u1);
+//				Instant.parse("2019-06-20T19:53:07Z"), TipoObjetivo.TURISMO, StatusObjetivo.CAMINHANDO, u1);
 //		Objetivo o2 = new Objetivo(null, "Casa Própria", BigDecimal.valueOf(250000), Instant.now(),
-//				Instant.parse("2019-06-20T19:53:07Z"), StatusObjetivo.AFASTANDO, u2);
+//				Instant.parse("2019-06-20T19:53:07Z"), TipoObjetivo.IMOVEL, StatusObjetivo.AFASTANDO, u2);
 //
 //		objetivoRepository.saveAll(Arrays.asList(o1, o2));
 //
