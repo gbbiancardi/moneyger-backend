@@ -6,4 +6,5 @@ import br.com.gerenciador.moneyger.model.User;
 
 public interface UserRepository extends JpaRepository<User, Long>{
 
+	User findByEmail(String email);
 }
