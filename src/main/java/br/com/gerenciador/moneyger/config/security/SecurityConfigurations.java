@@ -23,66 +23,63 @@ import br.com.gerenciador.moneyger.repositories.UserRepository;
 
 @EnableWebSecurity
 @Configuration
-public class SecurityConfigurations extends WebSecurityConfigurerAdapter{
-	
+public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
+
 	@Autowired
 	private AutenticacaoService autenticacaoService;
-	
+
 	@Autowired
 	private TokenService tokenService;
-	
+
 	@Autowired
 	private UserRepository usuarioRepository;
-	
+
 	@Override
 	@Bean
 	protected AuthenticationManager authenticationManager() throws Exception {
 		return super.authenticationManager();
 	}
-	
+
 	// Configuracoes de autenticacao
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.userDetailsService(autenticacaoService).passwordEncoder(new BCryptPasswordEncoder());
 	}
-	
+
 	// Configuracoes de autorizacao
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http
-		.cors().and()
-		.authorizeRequests()
-		.antMatchers(HttpMethod.GET, "/users/").permitAll()
-		.antMatchers(HttpMethod.GET, "/users/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/users/").permitAll()
-		.antMatchers(HttpMethod.POST, "/users/**").permitAll()
-		.antMatchers(HttpMethod.GET, "/login/").permitAll()
-		.antMatchers(HttpMethod.GET, "/login/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/login/cadastro/").permitAll()
-		.antMatchers(HttpMethod.POST, "/login/cadastro/**").permitAll()
-		.antMatchers(HttpMethod.POST, "/auth/").permitAll()
-		.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
-		.anyRequest().authenticated()
-		.and().csrf().disable()
-		.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-		.and().addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository), UsernamePasswordAuthenticationFilter.class);
+		http.cors().and().authorizeRequests().antMatchers(HttpMethod.GET, "/users/").permitAll()
+				.antMatchers(HttpMethod.GET, "/users/**").permitAll().antMatchers(HttpMethod.POST, "/users/")
+				.permitAll().antMatchers(HttpMethod.POST, "/users/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/").permitAll().antMatchers(HttpMethod.GET, "/actuator/**")
+				.permitAll().anyRequest().authenticated().and().csrf().disable().sessionManagement()
+				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+				.addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),
+						UsernamePasswordAuthenticationFilter.class);
 	}
-	
+
 	// Configuracoes de recursos estaticos(js, css, img, etc.)
 	@Override
 	public void configure(WebSecurity web) throws Exception {
-		web.ignoring()
-        .antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**", "/swagger-resources/**");
+		web.ignoring().antMatchers("/**.html", "/v2/api-docs", "/webjars/**", "/configuration/**",
+				"/swagger-resources/**");
 	}
-	
+
 	@Bean
 	CorsConfigurationSource corsConfigurationSource() {
 		CorsConfiguration configuration = new CorsConfiguration();
-		configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200/"));
-		configuration.setAllowedMethods(Arrays.asList("GET","POST"));
+		configuration.setAllowedOrigins(Arrays.asList("*"));
+		configuration.setAllowedMethods(Arrays.asList("GET", "POST", "OPTIONS", "PUT"));
+		configuration.setAllowedHeaders(Arrays.asList("Content-Type", "X-Requested-With", "accept", "Origin",
+				"Access-Control-Request-Method", "Access-Control-Request-Headers"));
+		configuration
+				.setExposedHeaders(Arrays.asList("Access-Control-Allow-Origin", "Access-Control-Allow-Credentials"));
+		configuration.setAllowCredentials(true);
+		configuration.setMaxAge(3600L);
 		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
 		source.registerCorsConfiguration("/**", configuration);
 		return source;
 	}
-	
+
 }
