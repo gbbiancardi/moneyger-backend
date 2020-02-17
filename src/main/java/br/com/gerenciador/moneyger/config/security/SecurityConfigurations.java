@@ -49,11 +49,17 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	// Configuracoes de autorizacao
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
-		http.cors().and().authorizeRequests().antMatchers(HttpMethod.GET, "/users/").permitAll()
-				.antMatchers(HttpMethod.GET, "/users/**").permitAll().antMatchers(HttpMethod.POST, "/users/")
-				.permitAll().antMatchers(HttpMethod.POST, "/users/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/auth/").permitAll().antMatchers(HttpMethod.GET, "/actuator/**")
-				.permitAll().anyRequest().authenticated().and().csrf().disable().sessionManagement()
+		http.cors().and().authorizeRequests()
+				.antMatchers(HttpMethod.GET, "/users/").permitAll()
+				.antMatchers(HttpMethod.GET, "/users/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/users/").permitAll()
+				.antMatchers(HttpMethod.POST, "/users/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/auth/").permitAll()
+				.antMatchers(HttpMethod.GET, "/auth/**").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/").permitAll()
+				.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
+				.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),
 						UsernamePasswordAuthenticationFilter.class);

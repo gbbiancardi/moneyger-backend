@@ -33,16 +33,23 @@ public class UserResource {
 		return ResponseEntity.ok().body(list);
 	}
 
+//	@CrossOrigin
+//	@GetMapping(value = "/{id}")
+//	public ResponseEntity<User> findById(@PathVariable Long id) {
+//		User obj = service.findById(id);
+//		return ResponseEntity.ok().body(obj);
+//	}
+
 	@CrossOrigin
-	@GetMapping(value = "/{id}")
-	public ResponseEntity<User> findById(@PathVariable Long id) {
-		User obj = service.findById(id);
+	@GetMapping(value = "/{email}")
+	public ResponseEntity<User> findByEmail(@PathVariable String email) {
+		User obj = service.findByEmail(email);
 		return ResponseEntity.ok().body(obj);
 	}
 
 	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<User> insert(@RequestBody User obj) {
+	public ResponseEntity<User> insert(@RequestBody User obj) throws Exception {
 		obj = service.insert(obj);
 		URI uri = ServletUriComponentsBuilder.fromCurrentRequest().path("/{id}").buildAndExpand(obj.getId()).toUri();
 		return ResponseEntity.created(uri).body(obj);

@@ -9,4 +9,5 @@ import br.com.gerenciador.moneyger.model.User;
 public interface UserRepository extends JpaRepository<User, Long>{
 
 	Optional<User> findByEmail(String email);
+	Optional<User> findBySenha(String senha);
 }

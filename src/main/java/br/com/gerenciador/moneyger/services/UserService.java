@@ -8,6 +8,7 @@ import javax.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciador.moneyger.model.User;
@@ -25,13 +26,32 @@ public class UserService {
 		return repository.findAll();
 	}
 
-	public User findById(Long id) {
-		Optional<User> obj = repository.findById(id);
-		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+//	public User findById(Long id) {
+//		Optional<User> obj = repository.findById(id);
+//		return obj.orElseThrow(() -> new ResourceNotFoundException(id));
+//	}
+
+	public User findByEmail(String email) {
+		Optional<User> user = repository.findByEmail(email);
+		return user.orElseThrow(() -> new ResourceNotFoundException(email));
 	}
 
-	public User insert(User obj) {
-		return repository.save(obj);
+	private boolean isEmailValid(String email) {
+		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
+		return email.matches(regex);
+	}
+
+	public User insert(User obj) throws Exception {
+		BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
+		String senha = encrypt.encode(obj.getPassword());
+		obj.setSenha(senha);
+
+		if (repository.findByEmail(obj.getEmail()) != null && isEmailValid(obj.getEmail())
+				&& !repository.findByEmail(obj.getEmail()).isPresent()) {
+			return repository.save(obj);
+		} else {
+			throw new Exception("Usuário inválido!");
+		}
 	}
 
 	public void delete(Long id) {
