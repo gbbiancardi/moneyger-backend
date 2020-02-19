@@ -40,10 +40,17 @@ public class UserResource {
 //		return ResponseEntity.ok().body(obj);
 //	}
 
+//	@CrossOrigin
+//	@GetMapping(value = "/{email}")
+//	public ResponseEntity<User> findByEmail(@PathVariable String email) {
+//		User obj = service.findByEmail(email);
+//		return ResponseEntity.ok().body(obj);
+//	}
+	
 	@CrossOrigin
-	@GetMapping(value = "/{email}")
-	public ResponseEntity<User> findByEmail(@PathVariable String email) {
-		User obj = service.findByEmail(email);
+	@GetMapping(value = "/{email}/{senha}")
+	public ResponseEntity<User> login(@PathVariable String email, @PathVariable String senha) throws Exception {
+		User obj = service.login(email, senha);
 		return ResponseEntity.ok().body(obj);
 	}
 

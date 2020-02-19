@@ -40,6 +40,21 @@ public class UserService {
 		String regex = "^[\\w-_\\.+]*[\\w-_\\.]\\@([\\w]+\\.)+[\\w]+[\\w]$";
 		return email.matches(regex);
 	}
+	
+	public User login(String email, String senha) throws Exception {
+		BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
+		Optional<User> user = repository.findByEmail(email);
+
+		boolean senhaValida = encrypt.matches(senha, user.get().getSenha());
+		
+		if (senhaValida) {
+			return user.orElseThrow(() -> new ResourceNotFoundException(email));
+		} else {
+			throw new Exception("Usuário inválido!");
+		}
+		
+		
+	}
 
 	public User insert(User obj) throws Exception {
 		BCryptPasswordEncoder encrypt = new BCryptPasswordEncoder();
