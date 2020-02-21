@@ -54,7 +54,7 @@ public class AutenticacaoViaTokenFilter extends OncePerRequestFilter{
 			return null;
 		}
 		
-		return token.substring(8, token.length());
+		return token.substring(7, token.length());
 	}
 
 }

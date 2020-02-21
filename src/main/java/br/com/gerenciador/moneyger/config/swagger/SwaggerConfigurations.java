@@ -17,7 +17,7 @@ import springfox.documentation.spring.web.plugins.Docket;
 public class SwaggerConfigurations {
 
 	@Bean
-	public Docket forumApi() {
+	public Docket moneygerApi() {
 		 return new Docket(DocumentationType.SWAGGER_2)
 	                .select()
 	                .apis(RequestHandlerSelectors.basePackage("br.com.gerenciador.moneyger"))
