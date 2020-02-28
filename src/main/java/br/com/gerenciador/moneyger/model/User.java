@@ -90,6 +90,10 @@ public class User implements UserDetails {
 	public List<Despesa> getDespesa() {
 		return despesa;
 	}
+	
+	public List<Receita> getReceita() {
+		return receita;
+	}
 
 	@Override
 	public int hashCode() {

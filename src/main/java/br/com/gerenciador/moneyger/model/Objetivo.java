@@ -2,7 +2,7 @@ package br.com.gerenciador.moneyger.model;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.Instant;
+import java.util.Date;
 
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -10,6 +10,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+
+import org.springframework.format.annotation.DateTimeFormat;
 
 import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 import br.com.gerenciador.moneyger.model.enums.TipoObjetivo;
@@ -24,10 +26,13 @@ public class Objetivo implements Serializable {
 	private Long id;
 	private String descricao;
 	private BigDecimal meta;
-	private Instant dataAtual;
-	private Instant dataEstipulada;
+	private Date dataAtual;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
+	private Date dataEstipulada;
 
 	private Integer tipoObjetivo;
+	
 	private Integer statusObjetivo;
 
 	@ManyToOne
@@ -37,8 +42,10 @@ public class Objetivo implements Serializable {
 	public Objetivo() {
 
 	}
+	
+	
 
-	public Objetivo(Long id, String descricao, BigDecimal meta, Instant dataAtual, Instant dataEstipulada,
+	public Objetivo(Long id, String descricao, BigDecimal meta, Date dataAtual, Date dataEstipulada,
 			TipoObjetivo tipoObjetivo, StatusObjetivo statusObjetivo, User client) {
 		super();
 		this.id = id;
@@ -75,19 +82,19 @@ public class Objetivo implements Serializable {
 		this.meta = meta;
 	}
 
-	public Instant getDataAtual() {
+	public Date getDataAtual() {
 		return dataAtual;
 	}
 
-	public void setDataAtual(Instant dataAtual) {
+	public void setDataAtual(Date dataAtual) {
 		this.dataAtual = dataAtual;
 	}
 
-	public Instant getDataEstipulada() {
+	public Date getDataEstipulada() {
 		return dataEstipulada;
 	}
 
-	public void setDataEstipulada(Instant dataEstipulada) {
+	public void setDataEstipulada(Date dataEstipulada) {
 		this.dataEstipulada = dataEstipulada;
 	}
 

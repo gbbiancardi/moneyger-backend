@@ -1,5 +1,6 @@
 package br.com.gerenciador.moneyger.services;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +12,7 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
 import br.com.gerenciador.moneyger.model.Objetivo;
+import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 import br.com.gerenciador.moneyger.repositories.ObjetivoRepository;
 import br.com.gerenciador.moneyger.services.exceptions.DatabaseException;
 import br.com.gerenciador.moneyger.services.exceptions.ResourceNotFoundException;
@@ -20,6 +22,9 @@ public class ObjetivoService {
 
 	@Autowired
 	private ObjetivoRepository repository;
+	
+//	@Autowired
+//	private UserService userService;
 	
 	public List<Objetivo> findAll() {
 		return repository.findAll();
@@ -31,7 +36,16 @@ public class ObjetivoService {
 	}
 	
 	public Objetivo insert(Objetivo obj) throws Exception {
-		return repository.save(obj);	
+		obj.setId(null);
+		
+		Date instant = new Date();
+		obj.setDataAtual(instant);
+		
+		obj.setStatusObjetivo(StatusObjetivo.CAMINHANDO);
+		
+//		obj.setClient(userService.findByEmail(obj.getClient().getEmail()));
+		
+		return repository.save(obj);
 	}
 
 	public void delete(Long id) {
@@ -56,6 +70,7 @@ public class ObjetivoService {
 
 	private void updateData(Objetivo entity, Objetivo obj) {
 		entity.setDescricao(obj.getDescricao());
+		entity.setMeta(obj.getMeta());
 		entity.setTipoObjetivo(obj.getTipoObjetivo());
 		entity.setDataEstipulada(obj.getDataEstipulada());
 	}
