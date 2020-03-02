@@ -5,7 +5,6 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -50,27 +49,13 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 		http.cors().and().authorizeRequests()
-				.antMatchers(HttpMethod.GET, "/users/").permitAll()
-				.antMatchers(HttpMethod.GET, "/users/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/users/").permitAll()
-				.antMatchers(HttpMethod.POST, "/users/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/objetivos/").permitAll()
-				.antMatchers(HttpMethod.GET, "/objetivos/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/objetivos/").permitAll()
-				.antMatchers(HttpMethod.POST, "/objetivos/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/receitas/").permitAll()
-				.antMatchers(HttpMethod.GET, "/receitas/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/receitas/").permitAll()
-				.antMatchers(HttpMethod.POST, "/receitas/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/despesas/").permitAll()
-				.antMatchers(HttpMethod.GET, "/despesas/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/despesas/").permitAll()
-				.antMatchers(HttpMethod.POST, "/despesas/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/auth/").permitAll()
-				.antMatchers(HttpMethod.GET, "/auth/**").permitAll()
-				.antMatchers(HttpMethod.POST, "/auth/").permitAll()
-				.antMatchers(HttpMethod.POST, "/auth/**").permitAll()
-				.antMatchers(HttpMethod.GET, "/actuator/**").permitAll()
+				.antMatchers("/users/**").permitAll()
+				.antMatchers("/objetivos/**").permitAll()
+				.antMatchers("/receitas/**").permitAll()
+				.antMatchers("/despesas/**").permitAll()
+				.antMatchers("/email/**").permitAll()
+				.antMatchers("/auth/**").permitAll()
+				.antMatchers("/actuator/**").permitAll()
 				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				.addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),
