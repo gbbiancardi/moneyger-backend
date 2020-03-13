@@ -1,4 +1,4 @@
-package br.com.gerenciador.moneyger.resources.exceptions;
+package br.com.gerenciador.moneyger.exceptions;
 
 import java.time.Instant;
 
@@ -8,9 +8,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
-
-import br.com.gerenciador.moneyger.services.exceptions.DatabaseException;
-import br.com.gerenciador.moneyger.services.exceptions.ResourceNotFoundException;
 
 @ControllerAdvice
 public class ResourceExceptionHandler {

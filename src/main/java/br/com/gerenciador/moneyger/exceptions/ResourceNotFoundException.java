@@ -1,4 +1,4 @@
-package br.com.gerenciador.moneyger.services.exceptions;
+package br.com.gerenciador.moneyger.exceptions;
 
 public class ResourceNotFoundException extends RuntimeException {
 

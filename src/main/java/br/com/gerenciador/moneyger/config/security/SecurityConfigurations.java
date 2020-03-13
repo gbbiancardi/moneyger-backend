@@ -18,7 +18,10 @@ import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 
+import br.com.gerenciador.moneyger.config.AutenticacaoFilterConfiguration;
 import br.com.gerenciador.moneyger.repositories.UserRepository;
+import br.com.gerenciador.moneyger.services.AutenticacaoService;
+import br.com.gerenciador.moneyger.services.TokenService;
 
 @EnableWebSecurity
 @Configuration
@@ -48,17 +51,18 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 	// Configuracoes de autorizacao
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
+		
 		http.cors().and().authorizeRequests()
 				.antMatchers("/users/**").permitAll()
 				.antMatchers("/objetivos/**").permitAll()
 				.antMatchers("/receitas/**").permitAll()
 				.antMatchers("/despesas/**").permitAll()
 				.antMatchers("/email/**").permitAll()
-				.antMatchers("/auth/**").permitAll()
+				.antMatchers("/auth").permitAll()
 				.antMatchers("/actuator/**").permitAll()
 				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-				.addFilterBefore(new AutenticacaoViaTokenFilter(tokenService, usuarioRepository),
+				.addFilterBefore(new AutenticacaoFilterConfiguration(tokenService, usuarioRepository),
 						UsernamePasswordAuthenticationFilter.class);
 	}
 

@@ -1,4 +1,4 @@
-package br.com.gerenciador.moneyger.resources.exceptions;
+package br.com.gerenciador.moneyger.exceptions;
 
 import java.io.Serializable;
 import java.time.Instant;

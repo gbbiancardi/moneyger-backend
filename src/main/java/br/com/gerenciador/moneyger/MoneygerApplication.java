@@ -8,9 +8,9 @@ import org.springframework.data.web.config.EnableSpringDataWebSupport;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
 @SpringBootApplication
-@EnableSpringDataWebSupport
-@EnableCaching
-@EnableSwagger2
+@EnableSpringDataWebSupport //habilita as funcionalidades da JPA, usei para criar paginação e ordenação de recursos
+@EnableCaching //habilita o uso de cache na aplicação
+@EnableSwagger2 // habita o uso do swagger para documentar a API
 public class MoneygerApplication {
 
 	public static void main(String[] args) {

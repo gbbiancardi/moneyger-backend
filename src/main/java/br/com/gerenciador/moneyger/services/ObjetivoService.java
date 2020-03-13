@@ -11,11 +11,11 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.stereotype.Service;
 
+import br.com.gerenciador.moneyger.exceptions.DatabaseException;
+import br.com.gerenciador.moneyger.exceptions.ResourceNotFoundException;
 import br.com.gerenciador.moneyger.model.Objetivo;
 import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 import br.com.gerenciador.moneyger.repositories.ObjetivoRepository;
-import br.com.gerenciador.moneyger.services.exceptions.DatabaseException;
-import br.com.gerenciador.moneyger.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class ObjetivoService {

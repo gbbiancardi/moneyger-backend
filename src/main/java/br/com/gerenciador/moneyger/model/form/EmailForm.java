@@ -1,4 +1,4 @@
-package br.com.gerenciador.moneyger.resources.form;
+package br.com.gerenciador.moneyger.model.form;
 
 public class EmailForm {
 

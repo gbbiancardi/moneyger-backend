@@ -11,10 +11,10 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import br.com.gerenciador.moneyger.exceptions.DatabaseException;
+import br.com.gerenciador.moneyger.exceptions.ResourceNotFoundException;
 import br.com.gerenciador.moneyger.model.User;
 import br.com.gerenciador.moneyger.repositories.UserRepository;
-import br.com.gerenciador.moneyger.services.exceptions.DatabaseException;
-import br.com.gerenciador.moneyger.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class UserService {

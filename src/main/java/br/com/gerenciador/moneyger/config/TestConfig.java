@@ -1,25 +1,7 @@
 package br.com.gerenciador.moneyger.config;
 
-import java.math.BigDecimal;
-import java.time.Instant;
-import java.util.Arrays;
-
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Configuration;
-
-import br.com.gerenciador.moneyger.model.Despesa;
-import br.com.gerenciador.moneyger.model.Objetivo;
-import br.com.gerenciador.moneyger.model.Receita;
-import br.com.gerenciador.moneyger.model.User;
-import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
-import br.com.gerenciador.moneyger.model.enums.TipoDespesa;
-import br.com.gerenciador.moneyger.model.enums.TipoObjetivo;
-import br.com.gerenciador.moneyger.model.enums.TipoReceita;
-import br.com.gerenciador.moneyger.repositories.DespesaRepository;
-import br.com.gerenciador.moneyger.repositories.ObjetivoRepository;
-import br.com.gerenciador.moneyger.repositories.ReceitaRepository;
-import br.com.gerenciador.moneyger.repositories.UserRepository;
 
 @Configuration
 public class TestConfig implements CommandLineRunner {
