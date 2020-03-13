@@ -32,20 +32,24 @@ public class EmailService {
 //
 //		mailSender.send(message);
 //		return "Email enviado com sucesso!";
-		try {
-			MimeMessage mail = mailSender.createMimeMessage();
-
-			MimeMessageHelper helper = new MimeMessageHelper(mail);
-			helper.setTo("moneyger8076@gmail.com");
-			helper.setSubject(email.getAssunto());
-			helper.setText("<b>Título: " + email.getTitulo() + "</b>\n\n" + "<p>Mensagem:</p>\n" + "<p>"
-					+ email.getMensagem() + "</p>", true);
-			mailSender.send(mail);
-
-			return "Email enviado com sucesso!";
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "Erro ao enviar e-mail";
+		if (email.getAssunto() != null && email.getTitulo() != null && email.getMensagem() != null) {
+			
+			try {
+				MimeMessage mail = mailSender.createMimeMessage();
+				
+				MimeMessageHelper helper = new MimeMessageHelper(mail);
+				helper.setTo("moneyger8076@gmail.com");
+				helper.setSubject(email.getAssunto());
+				helper.setText("<b>Título: " + email.getTitulo() + "</b>\n\n" + "<p>" + email.getMensagem() + "</p>", true);
+				mailSender.send(mail);
+				
+				return "Email enviado com sucesso!";
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "Erro ao enviar e-mail";
+			}
+		} else {
+			return "Erro ao enviar e-mail. Campo nulo.";
 		}
 	}
 }
