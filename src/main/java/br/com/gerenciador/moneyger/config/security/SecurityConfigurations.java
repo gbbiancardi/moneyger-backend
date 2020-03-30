@@ -58,7 +58,7 @@ public class SecurityConfigurations extends WebSecurityConfigurerAdapter {
 				.antMatchers("/receitas/**").permitAll()
 				.antMatchers("/despesas/**").permitAll()
 				.antMatchers("/email/**").permitAll()
-				.antMatchers("/auth").permitAll()
+				.antMatchers("/auth/**").permitAll()
 				.antMatchers("/actuator/**").permitAll()
 				.anyRequest().authenticated().and().csrf().disable().sessionManagement()
 				.sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
