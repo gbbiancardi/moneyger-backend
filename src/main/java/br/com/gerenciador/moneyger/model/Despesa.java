@@ -4,31 +4,44 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.time.Instant;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import br.com.gerenciador.moneyger.model.enums.TipoDespesa;
 
 @Entity
+@Table(name = "TB_DESPESA")
+@SequenceGenerator(name = "despesa", sequenceName = "SQ_TB_DESPESA", allocationSize = 1)
 public class Despesa implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "cd_despesa")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "ds_despesa")
 	private String descricao;
+	
+	@Column(name = "vl_despesa")
 	private BigDecimal valor;
+	
+	@Column(name = "dt_despesa")
 	private Instant data;
 
+	@Column(name = "nr_despesa")
 	private Integer tipoDespesa;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "cd_usuario")
 	private User client;
 
 	public Despesa() {

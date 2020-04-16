@@ -4,12 +4,15 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -17,26 +20,38 @@ import br.com.gerenciador.moneyger.model.enums.StatusObjetivo;
 import br.com.gerenciador.moneyger.model.enums.TipoObjetivo;
 
 @Entity
+@Table(name = "TB_OBJETIVO")
+@SequenceGenerator(name = "objetivo", sequenceName = "SQ_TB_OBJETIVO", allocationSize = 1)
 public class Objetivo implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "cd_objetivo")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "ds_objetivo")
 	private String descricao;
+	
+	@Column(name = "vl_meta")
 	private BigDecimal meta;
+	
+	@Column(name = "dt_atual")
 	private Date dataAtual;
 	
+	@Column(name = "dt_estipulada")
 	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private Date dataEstipulada;
 
+	@Column(name = "nr_tipo")
 	private Integer tipoObjetivo;
 	
+	@Column(name = "nr_status")
 	private Integer statusObjetivo;
 
 	@ManyToOne
-	@JoinColumn(name = "client_id")
+	@JoinColumn(name = "cd_usuario")
 	private User client;
 
 	public Objetivo() {

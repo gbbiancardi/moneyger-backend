@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -11,20 +12,31 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 @Entity
+@Table(name = "TB_USUARIO")
+@SequenceGenerator(name = "usuario", sequenceName = "SQ_TB_USUARIO", allocationSize = 1)
 public class User implements UserDetails {
 
 	private static final long serialVersionUID = 1L;
 
 	@Id
+	@Column(name = "cd_usuario")
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
+	
+	@Column(name = "nm_usuario", nullable = false)
 	private String nome;
+	
+	@Column(name = "ds_email", nullable = false)
 	private String email;
+	
+	@Column(name = "ds_senha", nullable = false)
 	private String senha;
 	
 	@ManyToMany(fetch = FetchType.EAGER)
@@ -45,7 +57,6 @@ public class User implements UserDetails {
 
 	public User(Long id, String nome, String email, String senha) {
 		super();
-		this.id = id;
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
