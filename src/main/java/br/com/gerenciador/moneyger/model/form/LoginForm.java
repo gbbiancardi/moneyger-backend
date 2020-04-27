@@ -16,6 +16,16 @@ public class LoginForm {
 	@NotNull
 	private String senha;
 
+	public LoginForm() {
+		super();
+	}
+
+	public LoginForm(@NotNull @Email String email, @Length(min = 6, max = 18) @NotNull String senha) {
+		super();
+		this.email = email;
+		this.senha = senha;
+	}
+
 	public String getEmail() {
 		return email;
 	}

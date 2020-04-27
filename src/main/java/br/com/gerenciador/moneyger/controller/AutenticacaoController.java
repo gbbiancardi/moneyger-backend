@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import br.com.gerenciador.moneyger.model.dto.TokenDTO;
 import br.com.gerenciador.moneyger.model.form.LoginForm;
-import br.com.gerenciador.moneyger.services.TokenService;
+import br.com.gerenciador.moneyger.services.TokenServiceImpl;
 
 @RestController
 @RequestMapping("/auth")
@@ -25,7 +25,7 @@ public class AutenticacaoController {
     private AuthenticationManager authenticationManager;
 
     @Autowired
-    private TokenService tokenService;
+    private TokenServiceImpl tokenService;
 
     @PostMapping
     public ResponseEntity<?> autenticar(@RequestBody @Valid LoginForm form) {
