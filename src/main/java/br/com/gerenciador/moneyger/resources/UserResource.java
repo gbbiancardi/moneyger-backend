@@ -5,9 +5,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -20,20 +17,11 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import br.com.gerenciador.moneyger.model.User;
-import br.com.gerenciador.moneyger.model.dto.TokenDTO;
-import br.com.gerenciador.moneyger.model.form.LoginForm;
-import br.com.gerenciador.moneyger.services.TokenServiceImpl;
 import br.com.gerenciador.moneyger.services.UserService;
 
 @RestController
 @RequestMapping(value = "/users")
 public class UserResource {
-	
-	@Autowired
-	private AuthenticationManager authenticationManager;
-
-	@Autowired
-	private TokenServiceImpl tokenService;
 
 	@Autowired
 	private UserService service;
@@ -58,21 +46,12 @@ public class UserResource {
 //		User obj = service.findByEmail(email);
 //		return ResponseEntity.ok().body(obj);
 //	}
-	
+
 	@CrossOrigin
-	@RequestMapping(value = "/{email}/{senha}")
-	public ResponseEntity<?> login(@PathVariable String email, @PathVariable String senha) throws Exception {
-//		User obj = service.login(email, senha);
-		
-		LoginForm loginForm = new LoginForm(email, senha);
-
-		UsernamePasswordAuthenticationToken dadosLogin = loginForm.converter();
-
-		Authentication authentication = authenticationManager.authenticate(dadosLogin);
-
-		String token = tokenService.gerarToken(authentication);
-
-		return ResponseEntity.ok().body(new TokenDTO(token, "Bearer"));
+	@GetMapping(value = "/{email}/{senha}")
+	public ResponseEntity<User> login(@PathVariable String email, @PathVariable String senha) throws Exception {
+		User obj = service.login(email, senha);
+		return ResponseEntity.ok().body(obj);
 	}
 
 	@CrossOrigin
